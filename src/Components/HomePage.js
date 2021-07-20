@@ -9,9 +9,28 @@ const CarouselProduct = (props) => (
         </Row>
         <Row>
             {props.obj.map(item => (
-                <ProductCard img={item.img}
+                <ProductCard key ={item.title}
+                    img={item.img}
                     title={item.title}
                     description={item.description}
+                />
+            ))}
+        </Row>
+    </Container>
+
+);
+const CarouselTestProduct = (props) => (
+    <Container className="carsousel">
+        <Row className="categoryName">
+            <h4>-- {props.categoryName} --</h4>
+        </Row>
+        <Row>
+            {props.obj.map(item => (
+                <ProductCard key ={item.id}
+                    img={item.images.icon}
+                    title={item.name}
+                    description={item.description}
+                    id={item.id}
                 />
             ))}
         </Row>
@@ -22,9 +41,15 @@ const CarouselProduct = (props) => (
 export default class HomePage extends React.Component {
     state = {
         puzzles: [],
-        boardGames: []
+        boardGames: [],
+        tests: []
     };
-    componentDidMount() {
+    async componentDidMount() {
+        const data = await fetch('https://fortnite-api.com/v2/cosmetics/br/new');
+        const items = await data.json();
+        const myArray = items.data.items;
+        this.setState({tests : myArray});
+        
         this.setState({
             puzzles: [{
                 id: 100,
@@ -68,6 +93,9 @@ export default class HomePage extends React.Component {
                 </section>
                 <section id="dolls" className="dolls">
                     <CarouselProduct categoryName="Dolls" obj={this.state.boardGames} />
+                </section>
+                <section id="educational" className="educational">
+                    <CarouselTestProduct categoryName="Educational" obj={this.state.tests} />
                 </section>
             </div>
         );

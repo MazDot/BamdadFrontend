@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function StoreDetail ( {match} ) {
+function ProductDetail ( {match} ) {
     useEffect(() => {
         fetchItem();
     },[]);
@@ -15,6 +15,7 @@ function StoreDetail ( {match} ) {
         );
         const item = await fetchItem.json();
         setItem(item);
+        console.log(item);
 
     };
     return (
@@ -25,4 +26,4 @@ function StoreDetail ( {match} ) {
     );
 }
 
-export default StoreDetail;
+export default ProductDetail;

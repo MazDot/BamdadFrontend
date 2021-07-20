@@ -11,7 +11,6 @@ function Stores () {
     const fetchItems = async () => {
         const data = await fetch('https://fortnite-api.com/v2/cosmetics/br/new');
         const items = await data.json();
-        console.log(items.data.items);
         setItems(items.data.items);
     };
 
