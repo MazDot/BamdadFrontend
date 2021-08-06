@@ -7,6 +7,9 @@ import ProductDetail from './Components/ProductDetail.js';
 import Stores from './Components/Stores.js';
 import StoreDetail from './Components/StoreDetail.js';
 import NotFound from './Components/NotFound.js';
+import Login from './Components/LoginPage.js';
+import Signup from './Components/SignupPage.js';
+import EditProfile from './Components/EditProfile.js';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 
@@ -23,6 +26,9 @@ class App extends React.Component {
               <Route path="/product/:id" component={ProductDetail} />
               <Route exact path="/stores" component={Stores} />
               <Route path="/stores/:id" component={StoreDetail} />
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
+              <Route path="/editprofile" component={EditProfile} />
               <Route component={NotFound} />
             </Switch>
           </Router>

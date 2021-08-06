@@ -1,5 +1,7 @@
 import market from '../market.png';
 import signout from '../signout.png';
+import signin from '../signin.png';
+import signup from '../signup.jpg';
 import account from '../account.png';
 import homePage from '../homepage.png';
 import React from 'react';
@@ -16,13 +18,13 @@ const NavigationBar = () => (
             </div>
             <div className="col-md-8">
                 <ListGroup horizontal>
-                    <ListGroup.Item><a className="nav-link scrollto" href="/home#sports">Sport</a></ListGroup.Item>
-                    <ListGroup.Item><a className="nav-link scrollto" href="/home#vehicle">Vehicle</a></ListGroup.Item>
-                    <ListGroup.Item><a className="nav-link scrollto" href="/home#boardGames">Board Game</a></ListGroup.Item>
-                    <ListGroup.Item><a className="nav-link scrollto" href="/home#dolls">Doll</a></ListGroup.Item>
-                    <ListGroup.Item><a className="nav-link scrollto" href="/home#educational">Educational</a></ListGroup.Item>
-                    <ListGroup.Item><a className="nav-link scrollto" href="/home#puzzles">Puzzle</a></ListGroup.Item>
-                    <ListGroup.Item><a className="nav-link scrollto" href="/home#lego">lego</a></ListGroup.Item>
+                    <ListGroup.Item><a className="nav-link scrollto" href="#sports">Sport</a></ListGroup.Item>
+                    <ListGroup.Item><a className="nav-link scrollto" href="#vehicle">Vehicle</a></ListGroup.Item>
+                    <ListGroup.Item><a className="nav-link scrollto" href="#boardGames">Board Game</a></ListGroup.Item>
+                    <ListGroup.Item><a className="nav-link scrollto" href="#dolls">Doll</a></ListGroup.Item>
+                    <ListGroup.Item><a className="nav-link scrollto" href="#educational">Educational</a></ListGroup.Item>
+                    <ListGroup.Item><a className="nav-link scrollto" href="#puzzles">Puzzle</a></ListGroup.Item>
+                    <ListGroup.Item><a className="nav-link scrollto" href="#lego">lego</a></ListGroup.Item>
                 </ListGroup>
             </div>
             <div className="col-md-2">
@@ -58,11 +60,13 @@ const AppHeader = () => (
             </Button>
         </Col>
         <Col md="1.1">
-            <Button variant="primary">Sign Up</Button>{' '}
+            <Link to='/signup'>
+                <img src={signup} width="80" />
+            </Link>
         </Col>
-        <Col md="1">
-            <Button variant="primary">Sign In</Button>{' '}
-        </Col>
+        <Link to='/login'>
+                <img src={signin} width="80" />
+        </Link>
     </Row>
 
 );

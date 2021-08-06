@@ -3,7 +3,6 @@ import { Col, Button } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 
 export const ProductCard = (props) => (
-    <Col md="3">
         <div className="card">
             <img src={props.img} className="card-img-top" alt="..."></img>
             <div className="card-body">
@@ -14,6 +13,5 @@ export const ProductCard = (props) => (
                 </Link>
             </div>
         </div>
-    </Col>
 
 );
