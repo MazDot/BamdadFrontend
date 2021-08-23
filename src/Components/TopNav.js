@@ -17,11 +17,6 @@ export default class TopNav extends React.Component{
                         <img src = {homePage} className="homeImage" width="30"></img>
                 </Link>
             </Col>
-            <Col xs="auto">
-                <Button variant="default">
-                    <img src={signout} width="30" />
-                </Button>
-            </Col>
             <Col md="6">
                 <div className="input-group">
                     <input type="search" id="form1" className="form-control" placeholder="Search" />

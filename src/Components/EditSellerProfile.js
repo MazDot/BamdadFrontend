@@ -58,6 +58,29 @@ class EditSellerProfile extends React.Component {
             }
         }
     }
+    HandleAllProducts = () => {
+        var token = window.localStorage.getItem('accessToken');
+        var isExpired = false;
+        if (token) {
+            var role = jwt_decode(token).Role;
+            if (token.length > 0) {
+                var decodedToken=jwt_decode(token, {complete: true});
+                var dateNow = new Date();
+        
+                if(decodedToken.exp < (dateNow.getTime() / 1000)) {
+                    isExpired = true;
+                }
+                if (!isExpired) {
+                    if (role == "Cutsomer") {
+                        this.props.history.push('/unauthorized');
+                    }
+                    if (role == "Seller") {
+                        this.props.history.push('/allproducts');
+                    }
+                }
+            }
+        }
+    }
 
     handleSubmit = (event) => {
         event.preventDefault();
@@ -137,6 +160,9 @@ class EditSellerProfile extends React.Component {
                     </Button>
                     <Button variant="success" onClick={this.HandleAddProduct}>
                         Add Product
+                    </Button>
+                    <Button variant="warning" onClick={this.HandleAllProducts}>
+                        View Products
                     </Button>
                 </Form>
             </div>

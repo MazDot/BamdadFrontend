@@ -12,9 +12,9 @@ const CarouselSlider = (props) => (
         <Carousel itemsToShow={3}>
         {props.obj.map(item => (
             <ProductCard key ={item.id}
-                img={item.images.icon}
+                img={item.picURL}
                 title={item.name}
-                description={item.description}
+                description={item.price}
                 id={item.id}
             />
         ))}
@@ -28,20 +28,12 @@ const NavigationBar = () => (
             <div className="col-md-2">
             </div>
             <div className="col-md-8">
-                <ListGroup horizontal>
+                <ListGroup className="topNAV" horizontal>
                     <ListGroup.Item><a className="nav-link scrollto" href="#sports">Sport</a></ListGroup.Item>
                     <ListGroup.Item><a className="nav-link scrollto" href="#vehicle">Vehicle</a></ListGroup.Item>
-                    <ListGroup.Item><a className="nav-link scrollto" href="#boardGames">Board Game</a></ListGroup.Item>
-                    <ListGroup.Item><a className="nav-link scrollto" href="#dolls">Doll</a></ListGroup.Item>
                     <ListGroup.Item><a className="nav-link scrollto" href="#educational">Educational</a></ListGroup.Item>
                     <ListGroup.Item><a className="nav-link scrollto" href="#puzzles">Puzzle</a></ListGroup.Item>
-                    <ListGroup.Item><a className="nav-link scrollto" href="#lego">lego</a></ListGroup.Item>
                 </ListGroup>
-            </div>
-            <div className="col-md-2">
-                <Link to='/stores'>
-                    <a>Stores</a>
-                </Link>
             </div>
         </div>
     </nav>
@@ -51,33 +43,40 @@ const NavigationBar = () => (
 export default class HomePage extends React.Component {
     state = {
         puzzles: [],
-        boardGames: [],
-        tests: []
+        sports: [],
+        educationals: [],
+        vehicles:[]
     };
     async componentDidMount() {
-        const data = await fetch('https://fortnite-api.com/v2/cosmetics/br/new');
-        const items = await data.json();
-        const myArray = items.data.items;
-        this.setState({tests : myArray});
+        const puzzleData = await fetch('https://localhost:44390/api/product/categorySearch/Puzzle');
+        const puzzleItems = await puzzleData.json();
+        this.setState({puzzles : puzzleItems});
+        const vehiclesData = await fetch('https://localhost:44390/api/product/categorySearch/Vehicle');
+        const vehicleItems = await vehiclesData.json();
+        this.setState({vehicles : vehicleItems});
+        const sportsData = await fetch('https://localhost:44390/api/product/categorySearch/Sport');
+        const sportsItems = await sportsData.json();
+        this.setState({sports : sportsItems});
+        const educationalData = await fetch('https://localhost:44390/api/product/categorySearch/Educational');
+        const educationalItems = await educationalData.json();
+        this.setState({educationals : educationalItems});
+
     }
     render() {
         return (
             <div className="homepageBody">
                 <NavigationBar />
-                <section id="puzzles" className="boardGames">
-                    <CarouselSlider categoryName="Puzzles" obj={this.state.tests} />
+                <section id="puzzles" className="puzzles">
+                    <CarouselSlider categoryName="Puzzles" obj={this.state.puzzles} />
                 </section>
-                <section id="boardGames" className="boardGames">
-                    <CarouselSlider categoryName="Board Games" obj={this.state.tests} />
+                <section id="vehicle" className="vehicle">
+                    <CarouselSlider categoryName="Vehicle" obj={this.state.vehicles} />
                 </section>
                 <section id="sports" className="sports">
-                    <CarouselSlider categoryName="Sports" obj={this.state.tests} />
-                </section>
-                <section id="dolls" className="dolls">
-                    <CarouselSlider categoryName="Dolls" obj={this.state.tests} />
+                    <CarouselSlider categoryName="Sports" obj={this.state.sports} />
                 </section>
                 <section id="educational" className="educational">
-                    <CarouselSlider categoryName="Educational" obj={this.state.tests} />
+                    <CarouselSlider categoryName="Educational" obj={this.state.educationals} />
                 </section>
             </div>
         );

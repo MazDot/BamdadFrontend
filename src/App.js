@@ -11,7 +11,9 @@ import NotFound from './Components/NotFound.js';
 import Login from './Components/LoginPage.js';
 import Signup from './Components/SignupPage.js';
 import AddProduct from './Components/AddProduct.js';
+import AllProducts from './Components/AllProducts.js';
 import EditProfile from './Components/EditProfile.js';
+import EditSellerProfile from './Components/EditSellerProfile.js';
 import Unauthorized from './Components/UnauthorizePage.js';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
@@ -32,8 +34,10 @@ class App extends React.Component {
               <Route path="/login" component={Login} />
               <Route path="/signup" component={Signup} />
               <Route path="/editprofile" component={EditProfile} />
+              <Route path="/editsellerprofile" component={EditSellerProfile} />
               <Route path="/unauthorized" component={Unauthorized} />
               <Route path="/addproduct" component={AddProduct} />
+              <Route path="/allproducts" component={AllProducts} />
               <Route component={NotFound} />
             </Switch>
             <Footer/>

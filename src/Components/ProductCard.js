@@ -7,7 +7,7 @@ export const ProductCard = (props) => (
             <img src={props.img} className="card-img-top" alt="..."></img>
             <div className="card-body">
                 <h5 className="card-title">{props.title}</h5>
-                <p className="card-text">{props.description}</p>
+                <p className="card-text">Price : {props.description}</p>
                 <Link to={`/product/${props.id}`}>
                 <Button variant="primary">View</Button>
                 </Link>
