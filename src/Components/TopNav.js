@@ -1,82 +1,82 @@
-import market from '../market.png';
 import signout from '../signout.png';
 import signin from '../signin.png';
 import signup from '../signup.jpg';
 import account from '../account.png';
 import homePage from '../homepage.png';
 import React from 'react';
-import { Button, Row, Col, ListGroup } from 'react-bootstrap';
+import { Button, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import jwt_decode from "jwt-decode";
 
-const NavigationBar = () => (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container-fluid">
-            <div className="col-md-2">
+export default class TopNav extends React.Component{
+    AppHeader = () => (
+
+        <Row xs="auto" className="headerRow">
+            <Col xs="auto">
                 <Link to='/home'>
-                    <img src = {homePage} className="homeImage"></img>
+                        <img src = {homePage} className="homeImage" width="30"></img>
                 </Link>
-            </div>
-            <div className="col-md-8">
-                <ListGroup horizontal>
-                    <ListGroup.Item><a className="nav-link scrollto" href="#sports">Sport</a></ListGroup.Item>
-                    <ListGroup.Item><a className="nav-link scrollto" href="#vehicle">Vehicle</a></ListGroup.Item>
-                    <ListGroup.Item><a className="nav-link scrollto" href="#boardGames">Board Game</a></ListGroup.Item>
-                    <ListGroup.Item><a className="nav-link scrollto" href="#dolls">Doll</a></ListGroup.Item>
-                    <ListGroup.Item><a className="nav-link scrollto" href="#educational">Educational</a></ListGroup.Item>
-                    <ListGroup.Item><a className="nav-link scrollto" href="#puzzles">Puzzle</a></ListGroup.Item>
-                    <ListGroup.Item><a className="nav-link scrollto" href="#lego">lego</a></ListGroup.Item>
-                </ListGroup>
-            </div>
-            <div className="col-md-2">
-                <Link to='/stores'>
-                    <a>Stores</a>
+            </Col>
+            <Col xs="auto">
+                <Button variant="default">
+                    <img src={signout} width="30" />
+                </Button>
+            </Col>
+            <Col md="6">
+                <div className="input-group">
+                    <input type="search" id="form1" className="form-control" placeholder="Search" />
+                </div>
+            </Col>
+            <Col md="1">
+                <Link to={this.state.redirect}>
+                    <img src={account} width="30" />
                 </Link>
-            </div>
-        </div>
-    </nav>
-
-);
-const AppHeader = () => (
-
-    <Row xs="auto" className="headerRow">
-        <Col xs="auto">
-            <Button variant="default">
-                <img src={market} width="40" />
-            </Button>
-        </Col>
-        <Col xs="auto">
-            <Button variant="default">
-                <img src={signout} width="30" />
-            </Button>
-        </Col>
-        <Col md="6">
-            <div className="input-group">
-                <input type="search" id="form1" className="form-control" placeholder="Search" />
-            </div>
-        </Col>
-        <Col md="1">
-            <Button variant="default">
-                <img src={account} width="30" />
-            </Button>
-        </Col>
-        <Col md="1.1">
-            <Link to='/signup'>
-                <img src={signup} width="80" />
+            </Col>
+                <Link to='/signup'>
+                    <img src={signup} width="80" />
+                </Link>
+            <Link to='/login'>
+                    <img src={signin} width="80" />
             </Link>
-        </Col>
-        <Link to='/login'>
-                <img src={signin} width="80" />
-        </Link>
-    </Row>
-
-);
-
-function TopNav (){
-    return (
-        <div>
-            <AppHeader />
-            <NavigationBar />
-        </div>
+        </Row>
+    
     );
+
+    state= {
+        redirect:""
+    }
+
+    componentDidMount () {
+        var token = window.localStorage.getItem('accessToken');
+        var isExpired = false;
+        if (token) {
+            var role = jwt_decode(token).Role;
+            if (token.length > 0) {
+                var decodedToken=jwt_decode(token, {complete: true});
+                var dateNow = new Date();
+        
+                if(decodedToken.exp < (dateNow.getTime() / 1000)) {
+                    isExpired = true;
+                }
+                if (!isExpired) {
+                    if (role == "Cutsomer") {
+                        this.setState({redirect:'/editprofile'});
+                        return;
+                    }
+                    if (role == "Seller") {
+                        this.setState({redirect:'/editsellerprofile'});
+                        return;
+                    }
+                }
+            }
+        }
+        this.setState({redirect:'/login'});
+    }
+    render() {
+        return (
+        <div>
+            <this.AppHeader />
+        </div>
+        );
+    }
 }
-export default TopNav;

@@ -10,7 +10,7 @@ const initialState = {
     newPassword:""
 }
 
-class EditProfile extends React.Component {
+class EditSellerProfile extends React.Component {
 
     state = initialState;
 
@@ -35,6 +35,30 @@ class EditProfile extends React.Component {
         window.localStorage.setItem('refreshToken', '');
         this.props.history.push('/login');
     }
+    HandleAddProduct = () => {
+        var token = window.localStorage.getItem('accessToken');
+        var isExpired = false;
+        if (token) {
+            var role = jwt_decode(token).Role;
+            if (token.length > 0) {
+                var decodedToken=jwt_decode(token, {complete: true});
+                var dateNow = new Date();
+        
+                if(decodedToken.exp < (dateNow.getTime() / 1000)) {
+                    isExpired = true;
+                }
+                if (!isExpired) {
+                    if (role == "Cutsomer") {
+                        this.props.history.push('/unauthorized');
+                    }
+                    if (role == "Seller") {
+                        this.props.history.push('/addproduct');
+                    }
+                }
+            }
+        }
+    }
+
     handleSubmit = (event) => {
         event.preventDefault();
         const isValid = this.validate();
@@ -111,10 +135,13 @@ class EditProfile extends React.Component {
                     <Button variant="danger" onClick={this.HandleLogout}>
                         Logout
                     </Button>
+                    <Button variant="success" onClick={this.HandleAddProduct}>
+                        Add Product
+                    </Button>
                 </Form>
             </div>
         );
     }
 }
 
-export default EditProfile;
+export default EditSellerProfile;

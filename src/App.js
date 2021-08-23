@@ -2,6 +2,7 @@ import './App.css';
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TopNav from './Components/TopNav.js';
+import Footer from './Components/Footer.js';
 import HomePage from './Components/HomePage.js';
 import ProductDetail from './Components/ProductDetail.js';
 import Stores from './Components/Stores.js';
@@ -9,7 +10,9 @@ import StoreDetail from './Components/StoreDetail.js';
 import NotFound from './Components/NotFound.js';
 import Login from './Components/LoginPage.js';
 import Signup from './Components/SignupPage.js';
+import AddProduct from './Components/AddProduct.js';
 import EditProfile from './Components/EditProfile.js';
+import Unauthorized from './Components/UnauthorizePage.js';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 
@@ -29,8 +32,11 @@ class App extends React.Component {
               <Route path="/login" component={Login} />
               <Route path="/signup" component={Signup} />
               <Route path="/editprofile" component={EditProfile} />
+              <Route path="/unauthorized" component={Unauthorized} />
+              <Route path="/addproduct" component={AddProduct} />
               <Route component={NotFound} />
             </Switch>
+            <Footer/>
           </Router>
         </Container>
       </React.Fragment>
